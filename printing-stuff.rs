@@ -1,3 +1,5 @@
+use std::fmt;
+
 fn main() {
   println!("{} days", 365); //{} automatically replaced with args stringified
 
@@ -14,4 +16,22 @@ fn main() {
   println!("{number:0>5}", number=1); //pad left
   println!("{number:0<5}", number=1); //pad right
   println!("{number:0>width$}", number=1, width=5); //append $ to specify arguments for formatting
+
+  struct Structure{ints: Vec<i32>}
+  impl fmt::Display for Structure {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        for i in &self.ints {
+            writeln!(f, "{}", i)?;
+        }
+        Ok(())
+    }
+}
+
+let mut vec = Vec::new();
+vec.push(1);
+vec.push(2);
+vec.push(3);
+println!("{}", Structure{ints: vec});
+
+
 }
